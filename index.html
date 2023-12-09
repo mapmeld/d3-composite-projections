@@ -17,6 +17,9 @@ path {
   stroke: #000;
   stroke-width: 0.5;
 }
+.aquaborder {
+  stroke: #00f;
+}
     </style>
   </head>
   <body>
@@ -55,6 +58,11 @@ path {
           .append("path")
           .attr("d", path1);
 
+      svg.append("path")
+       .style("fill","none")
+       .style("stroke","#00f")
+       .attr("d", projection1.getCompositionBorders());
+
     // landscape
     const projection2 = d3.geoMercatorMalaysiaLandscape().scale(3500);
     const path2 = d3.geoPath()
@@ -69,6 +77,12 @@ path {
           .enter()
           .append("path")
           .attr("d", path2);
+
+      svg2.append("path")
+       .style("fill","none")
+       .style("stroke","#00f")
+       .attr("d", projection2.getCompositionBorders());
+
 
     // portrait
     const projection3 = d3.geoMercatorMalaysiaPortrait().scale(3000);
@@ -85,6 +99,10 @@ path {
           .append("path")
           .attr("d", path3);
 
+      svg3.append("path")
+       .style("fill","none")
+       .style("stroke","#00f")
+       .attr("d", projection3.getCompositionBorders());
     </script>
   </body>
 </html>

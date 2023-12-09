@@ -3493,15 +3493,11 @@ function mercatorMalaysiaLandscape () {
   }
 
   landscapeMalaysia.drawCompositionBorders = function (context) {
-    var llbor = peninsular([106.3214, 2.0228]);
-    var lmbor = peninsular([105.1843, 2.3761]);
-    var lrbor = peninsular([104.2151, 3.3618]);
-    var llrbor = peninsular([104.215, 4.5651]);
+    var llbor = peninsular([104, 0.55]);
+    var lmbor = peninsular([105.2, 2.2]);
 
     context.moveTo(llbor[0], llbor[1]);
     context.lineTo(lmbor[0], lmbor[1]);
-    context.lineTo(lrbor[0], lrbor[1]);
-    context.lineTo(llrbor[0], llrbor[1]);
   };
   landscapeMalaysia.getCompositionBorders = function () {
     var context = d3Path.path();
@@ -3661,15 +3657,13 @@ function mercatorMalaysiaPortrait () {
   }
 
   portraitMalaysia.drawCompositionBorders = function (context) {
-    var llbor = peninsular([106.3214, 2.0228]);
-    var lmbor = peninsular([105.1843, 2.3761]);
-    var lrbor = peninsular([104.2151, 3.3618]);
-    var llrbor = peninsular([104.215, 4.5651]);
+    var llbor = peninsular([102.5, -0.75]);
+    var lmbor = peninsular([106, 0.55]);
+    var end = peninsular([108, 5]);
 
     context.moveTo(llbor[0], llbor[1]);
     context.lineTo(lmbor[0], lmbor[1]);
-    context.lineTo(lrbor[0], lrbor[1]);
-    context.lineTo(llrbor[0], llrbor[1]);
+    context.lineTo(end[0], end[1]);
   };
   portraitMalaysia.getCompositionBorders = function () {
     var context = d3Path.path();
