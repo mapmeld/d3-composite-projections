@@ -17,7 +17,7 @@ path {
   stroke: #000;
   stroke-width: 0.5;
 }
-#original {
+#irl, #original {
   zoom: 0.5;
 }
 .aquaborder {
@@ -26,21 +26,24 @@ path {
     </style>
   </head>
   <body>
-    <h3>Original</h3>
-    <p>Comes with <a href="https://github.com/rveciana/d3-composite-projections">github.com/rveciana/d3-composite-projections</a>, written by
+    <h3>Originals</h3>
+    <p>Malaysia has two states (Sarawak and Sabah) on the island of Borneo. Here's the country in a standard Mercator projection.</p>
+    <div id="irl"></div>
+
+    <p>If you want them on the same page, <a href="https://github.com/rveciana/d3-composite-projections">github.com/rveciana/d3-composite-projections</a> has a projection written by
       Saiful Azfar Ramlee and Roger Veciana i Rovira.
     <div id="original"></div>
 
     <h3>Landscape</h3>
     <p>Based on <a href="https://twitter.com/StatsMalaysia/status/1616631795792977920">images from Department of Statistics Malaysia</a>,
-    more "tip-to-tip" view. East Malaysia actually has more land area than Peninsular Malaysia. Both projections are downscaling it,
-    but this one is 0.76 to the original's 0.615. There was a little discrepancy here which makes me think that DOSM's East Malaysia
-    is using a non-Mercator projection.</p>
+    a more "tip-to-tip" view. East Malaysia has more land area than Peninsular Malaysia. Both projections are downscaling it,
+    but this one is 0.76 to the original's 0.615. There was a little discrepancy which makes me think that DOSM's East Malaysia
+    is stretching the latitudes/y-axis a bit.</p>
     <div id="landscape"></div>
 
     <h3>Portrait</h3>
-    <p>Based on <a href="https://twitter.com/StatsMalaysia/status/1718841181436801534/photo/3">images from Department of Statistics Malaysia</a>,
-    with an angular divider. East Malaysia is 0.8x scale of Peninsular Malaysia.</p>
+    <p>Based on more <a href="https://twitter.com/StatsMalaysia/status/1718841181436801534/photo/3">images from Department of Statistics Malaysia</a>,
+    with an angular divider. Better for portrait layout. East Malaysia is 0.8x scale of Peninsular Malaysia.</p>
     <div id="portrait"></div>
 
 
@@ -48,6 +51,20 @@ path {
     <script src="./d3-composite-projections.min.js"></script>
     <script src="./demo/malaysia.js"></script>
     <script>
+    const projection0 = d3.geoMercator().center([109, 4.5]).scale(2800);
+    const path0 = d3.geoPath()
+        .projection(projection0);
+
+    const svg0 = d3.select("#irl").append("svg")
+        .attr("width", 1000)
+        .attr("height", 500);
+
+      svg0.selectAll(".land")
+          .data(geojson.features)
+          .enter()
+          .append("path")
+          .attr("d", path0);
+
     const projection1 = d3.geoMercatorMalaysia();
     const path1 = d3.geoPath()
         .projection(projection1);
