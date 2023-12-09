@@ -28,13 +28,13 @@ path {
     <p>Based on <a href="https://twitter.com/StatsMalaysia/status/1616631795792977920">images from Department of Statistics Malaysia</a>,
     more "tip-to-tip" view. East Malaysia actually has more land area than Peninsular Malaysia. Both projections are downscaling it,
     but this one is 0.76 to the original's 0.615. There was a little discrepancy here which makes me think that DOSM's East Malaysia
-    is not using the Mercator projection, maybe stretching it on the y-axis.</p>
+    is using a different projection.</p>
     <div id="landscape"></div>
 
     <h3>Portrait</h3>
     <p>Based on <a href="https://twitter.com/StatsMalaysia/status/1718841181436801534/photo/3">images from Department of Statistics Malaysia</a>,
     with an angular divider. East Malaysia is to scale with Peninsular Malaysia.</p>
-    <div id="landscape"></div>
+    <div id="portrait"></div>
 
 
     <script src="//d3js.org/d3.v4.min.js"></script>
@@ -69,6 +69,22 @@ path {
           .enter()
           .append("path")
           .attr("d", path2);
+
+    // portrait
+    const projection3 = d3.geoMercatorMalaysiaPortrait().scale(3000);
+    const path3 = d3.geoPath()
+        .projection(projection3);
+
+    const svg3 = d3.select("#portrait").append("svg")
+        .attr("width", 600)
+        .attr("height", 800);
+
+      svg3.selectAll(".land")
+          .data(geojson.features)
+          .enter()
+          .append("path")
+          .attr("d", path3);
+
     </script>
   </body>
 </html>

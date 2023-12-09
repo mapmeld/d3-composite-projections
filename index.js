@@ -10,5 +10,6 @@ export { default as geoConicConformalEurope } from "./src/conicConformalEurope";
 export { default as geoConicConformalNetherlands } from "./src/conicConformalNetherlands";
 export { default as geoMercatorMalaysia } from "./src/mercatorMalaysia";
 export { default as geoMercatorMalaysiaLandscape } from "./src/mercatorMalaysiaLandscape";
+export { default as geoMercatorMalaysiaPortrait } from "./src/mercatorMalaysiaPortrait";
 export { default as geoMercatorEquatorialGuinea } from "./src/mercatorEquatorialGuinea";
 export { default as geoAlbersUk } from "./src/albersUk";

@@ -62,7 +62,7 @@ export default function () {
       },
     };
 
-  function landscapeMalaysia(coordinates) {
+  function portraitMalaysia(coordinates) {
     var x = coordinates[0],
       y = coordinates[1];
     return (
@@ -71,7 +71,7 @@ export default function () {
     );
   }
 
-  landscapeMalaysia.invert = function (coordinates) {
+  portraitMalaysia.invert = function (coordinates) {
     var k = peninsular.scale(),
       t = peninsular.translate(),
       x = (coordinates[0] - t[0]) / k,
@@ -84,7 +84,7 @@ export default function () {
     ).invert(coordinates);
   };
 
-  landscapeMalaysia.stream = function (stream) {
+  portraitMalaysia.stream = function (stream) {
     return cache && cacheStream === stream
       ? cache
       : (cache = multiplex([
@@ -93,7 +93,7 @@ export default function () {
         ]));
   };
 
-  landscapeMalaysia.precision = function (_) {
+  portraitMalaysia.precision = function (_) {
     if (!arguments.length) {
       return peninsular.precision();
     }
@@ -102,16 +102,16 @@ export default function () {
     return reset();
   };
 
-  landscapeMalaysia.scale = function (_) {
+  portraitMalaysia.scale = function (_) {
     if (!arguments.length) {
       return peninsular.scale();
     }
     peninsular.scale(_);
-    borneo.scale(_ * 0.76);
-    return landscapeMalaysia.translate(peninsular.translate());
+    borneo.scale(_ * 0.8);
+    return portraitMalaysia.translate(peninsular.translate());
   };
 
-  landscapeMalaysia.translate = function (_) {
+  portraitMalaysia.translate = function (_) {
     if (!arguments.length) {
       return peninsular.translate();
     }
@@ -120,7 +120,7 @@ export default function () {
       y = +_[1];
 
     peninsularPoint = peninsular
-      .translate([_[0] - 0.01 * k, _[1]])
+      .translate([_[0] - 0.02 * k, _[1]])
       .clipExtent([
         [x - 0.11 * k, y - 0.0521 * k],
         [x - 0.0111 * k, y + 0.0521 * k],
@@ -128,30 +128,30 @@ export default function () {
       .stream(pointStream);
 
     borneoPoint = borneo
-      .translate([x + 0.105 * k, y + 0.033 * k])
+      .translate([x + 0.053 * k, y + 0.1 * k])
       .clipExtent([
-        [x - 0.03 * k + epsilon, y - 0.0521 * k + epsilon],
-        [x + 0.2 * k - epsilon, y + 0.07 * k - epsilon],
+        [x - 0.11 * k + epsilon, y - 0.0521 * k + epsilon],
+        [x + 0.2 * k - epsilon, y + 2.1 * k - epsilon],
       ])
       .stream(pointStream);
 
     return reset();
   };
 
-  landscapeMalaysia.fitExtent = function (extent, object) {
-    return fitExtent(landscapeMalaysia, extent, object);
+  portraitMalaysia.fitExtent = function (extent, object) {
+    return fitExtent(portraitMalaysia, extent, object);
   };
 
-  landscapeMalaysia.fitSize = function (size, object) {
-    return fitSize(landscapeMalaysia, size, object);
+  portraitMalaysia.fitSize = function (size, object) {
+    return fitSize(portraitMalaysia, size, object);
   };
 
   function reset() {
     cache = cacheStream = null;
-    return landscapeMalaysia;
+    return portraitMalaysia;
   }
 
-  landscapeMalaysia.drawCompositionBorders = function (context) {
+  portraitMalaysia.drawCompositionBorders = function (context) {
     var llbor = peninsular([106.3214, 2.0228]);
     var lmbor = peninsular([105.1843, 2.3761]);
     var lrbor = peninsular([104.2151, 3.3618]);
@@ -162,11 +162,11 @@ export default function () {
     context.lineTo(lrbor[0], lrbor[1]);
     context.lineTo(llrbor[0], llrbor[1]);
   };
-  landscapeMalaysia.getCompositionBorders = function () {
+  portraitMalaysia.getCompositionBorders = function () {
     var context = path();
     this.drawCompositionBorders(context);
     return context.toString();
   };
 
-  return landscapeMalaysia.scale(4000);
+  return portraitMalaysia.scale(4000);
 }
