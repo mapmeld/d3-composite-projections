@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Malaysia geo projection tests</title>
+    <style type="text/css">
+body {
+  font-family: sans-serif;
+  padding: 20px;
+}
+svg {
+  border: 1px solid #ccc;
+}
+path {
+  fill: none;
+  stroke: #000;
+  stroke-width: 0.5;
+}
+    </style>
+  </head>
+  <body>
+    <h3>Original</h3>
+    <p>Distributed in <a href="https://github.com/rveciana/d3-composite-projections">github.com/rveciana/d3-composite-projections</a>
+    <div id="original"></div>
+
+    <h3>Landscape</h3>
+    <p>Based on <a href="https://twitter.com/StatsMalaysia/status/1616631795792977920">images from Department of Statistics Malaysia</a>,
+    more "tip-to-tip" view. East Malaysia actually has more land area than Peninsular Malaysia. Both projections are downscaling it,
+    but this one is 0.76 to the original's 0.615. There was a little discrepancy here which makes me think that DOSM's East Malaysia
+    is not using the Mercator projection, maybe stretching it on the y-axis.</p>
+    <div id="landscape"></div>
+
+    <h3>Portrait</h3>
+    <p>Based on <a href="https://twitter.com/StatsMalaysia/status/1718841181436801534/photo/3">images from Department of Statistics Malaysia</a>,
+    with an angular divider. East Malaysia is to scale with Peninsular Malaysia.</p>
+    <div id="landscape"></div>
+
+
+    <script src="//d3js.org/d3.v4.min.js"></script>
+    <script src="./d3-composite-projections.min.js"></script>
+    <script src="./demo/malaysia.js"></script>
+    <script>
+    const projection1 = d3.geoMercatorMalaysia();
+    const path1 = d3.geoPath()
+        .projection(projection1);
+
+    const svg = d3.select("#original").append("svg")
+        .attr("width", 1000)
+        .attr("height", 500);
+
+      svg.selectAll(".land")
+          .data(geojson.features)
+          .enter()
+          .append("path")
+          .attr("d", path1);
+
+    // landscape
+    const projection2 = d3.geoMercatorMalaysiaLandscape().scale(3500);
+    const path2 = d3.geoPath()
+        .projection(projection2);
+
+    const svg2 = d3.select("#landscape").append("svg")
+        .attr("width", 1000)
+        .attr("height", 500);
+
+      svg2.selectAll(".land")
+          .data(geojson.features)
+          .enter()
+          .append("path")
+          .attr("d", path2);
+    </script>
+  </body>
+</html>
